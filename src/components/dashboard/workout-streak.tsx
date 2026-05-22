@@ -10,7 +10,11 @@ const defaultStreak: WorkoutStreak = {
 }
 
 export function WorkoutStreakCard({ streak }: { streak?: WorkoutStreak }) {
-  const data = streak || defaultStreak
+  const data = {
+    current: streak?.current ?? defaultStreak.current,
+    personalBest: streak?.personalBest ?? defaultStreak.personalBest,
+    history: streak?.history ?? defaultStreak.history,
+  }
 
   return (
     <div className="rounded-2xl border border-border/50 bg-card p-6">
