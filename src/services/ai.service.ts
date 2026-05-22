@@ -1,5 +1,6 @@
 import { apiClient } from '@/lib/api-client'
 import type {
+  AIRecommendation,
   AIChatMessage,
   FatigueAnalysis,
   RecoveryScore,
@@ -8,6 +9,11 @@ import type {
 import type { ApiResponse } from '@/types/api.types'
 
 export const aiService = {
+  async getAIRecommendations(): Promise<AIRecommendation[]> {
+    const response = await apiClient.get<ApiResponse<AIRecommendation[]>>('/api/v1/ai/recommendations')
+    return response.data
+  },
+
   async sendChatMessage(sessionId: string, message: string): Promise<AIChatMessage[]> {
     const response = await apiClient.post<ApiResponse<AIChatMessage[]>>(`/api/v1/ai/chat/${sessionId}`, {
       message,

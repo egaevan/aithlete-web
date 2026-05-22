@@ -29,3 +29,17 @@ export function useMuscleVolume() {
     queryFn: () => analyticsService.getMuscleVolume(),
   })
 }
+
+export function useWeeklyProgress() {
+  return useQuery({
+    queryKey: QUERY_KEYS.analytics.weekly(),
+    queryFn: () => analyticsService.getWeeklyProgress(),
+  })
+}
+
+export function useStreak() {
+  return useQuery({
+    queryKey: QUERY_KEYS.analytics.streak(),
+    queryFn: () => analyticsService.getStreak(),
+  })
+}

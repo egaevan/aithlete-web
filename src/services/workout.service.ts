@@ -4,6 +4,8 @@ import type {
   CreateWorkoutInput,
   UpdateWorkoutInput,
   WorkoutHistoryFilters,
+  AddExerciseToWorkoutInput,
+  UpdateSetInput,
 } from '@/types/workout.types'
 import type { ApiResponse } from '@/types/api.types'
 
@@ -37,5 +39,23 @@ export const workoutService = {
 
   async deleteWorkout(id: string): Promise<void> {
     await apiClient.delete(`/api/v1/workouts/${id}`)
+  },
+
+  async addExerciseToWorkout(workoutId: string, data: AddExerciseToWorkoutInput): Promise<Workout> {
+    const response = await apiClient.post<ApiResponse<Workout>>(`/api/v1/workouts/${workoutId}/exercises`, data)
+    return response.data
+  },
+
+  async completeWorkout(workoutId: string): Promise<Workout> {
+    const response = await apiClient.post<ApiResponse<Workout>>(`/api/v1/workouts/${workoutId}/complete`)
+    return response.data
+  },
+
+  async updateSet(workoutId: string, exerciseId: string, setId: string, data: UpdateSetInput): Promise<{ id: string; reps: number; weight: number; completed: boolean }> {
+    const response = await apiClient.put<ApiResponse<{ id: string; reps: number; weight: number; completed: boolean }>>(
+      `/api/v1/workouts/${workoutId}/exercises/${exerciseId}/sets/${setId}`,
+      data,
+    )
+    return response.data
   },
 }

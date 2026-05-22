@@ -71,3 +71,24 @@ export interface WorkoutHistoryFilters {
   limit?: number
   offset?: number
 }
+
+export interface AddExerciseToWorkoutInput {
+  exerciseId: string
+  sets: SetInput[]
+  notes?: string
+}
+
+export interface SetInput {
+  setNumber: number
+  reps: number
+  weight: number
+  completed?: boolean
+  rpe?: number
+}
+
+export interface UpdateSetInput {
+  reps?: number
+  weight?: number
+  completed?: boolean
+  rpe?: number
+}

@@ -34,3 +34,17 @@ export function useConsistency() {
     queryFn: () => progressService.getConsistency(),
   })
 }
+
+export function useProgressOverview() {
+  return useQuery({
+    queryKey: QUERY_KEYS.progress.overview(),
+    queryFn: () => progressService.getProgressOverview(),
+  })
+}
+
+export function useProgressMuscleVolume() {
+  return useQuery({
+    queryKey: QUERY_KEYS.progress.muscleVolume(),
+    queryFn: () => progressService.getMuscleVolume(),
+  })
+}

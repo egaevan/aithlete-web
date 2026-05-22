@@ -1,7 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { workoutService } from '@/services/workout.service'
 import { QUERY_KEYS } from '@/lib/query-options'
-import type { CreateWorkoutInput, UpdateWorkoutInput, WorkoutHistoryFilters } from '@/types/workout.types'
+import type {
+  CreateWorkoutInput,
+  UpdateWorkoutInput,
+  WorkoutHistoryFilters,
+  AddExerciseToWorkoutInput,
+  UpdateSetInput,
+} from '@/types/workout.types'
 
 export function useWorkouts(filters?: WorkoutHistoryFilters) {
   return useQuery({
@@ -50,6 +56,53 @@ export function useDeleteWorkout() {
     mutationFn: (id: string) => workoutService.deleteWorkout(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.workouts.all })
+    },
+  })
+}
+
+export function useAddExerciseToWorkout() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ workoutId, data }: { workoutId: string; data: AddExerciseToWorkoutInput }) =>
+      workoutService.addExerciseToWorkout(workoutId, data),
+    onSuccess: (_, { workoutId }) => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.workouts.detail(workoutId) })
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.workouts.exercises(workoutId) })
+    },
+  })
+}
+
+export function useCompleteWorkout() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (workoutId: string) => workoutService.completeWorkout(workoutId),
+    onSuccess: (_, workoutId) => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.workouts.all })
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.workouts.detail(workoutId) })
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.analytics.all })
+    },
+  })
+}
+
+export function useUpdateSet() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({
+      workoutId,
+      exerciseId,
+      setId,
+      data,
+    }: {
+      workoutId: string
+      exerciseId: string
+      setId: string
+      data: UpdateSetInput
+    }) => workoutService.updateSet(workoutId, exerciseId, setId, data),
+    onSuccess: (_, { workoutId }) => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.workouts.detail(workoutId) })
     },
   })
 }
