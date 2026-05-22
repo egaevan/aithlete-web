@@ -50,7 +50,7 @@ export type {
   PaginationMeta,
   WeightUnit,
 } from './api.types'
-export type { NavItem } from './ui.types'
+export type { NavItem, UserProfile } from './ui.types'
 export type {
   Schedule,
   CreateScheduleInput,
