@@ -1,3 +1,4 @@
+export type { HealthStatus } from './health.types'
 export type { User, AuthTokens, LoginInput, RegisterInput, AuthResponse } from './auth.types'
 export type {
   Exercise,
@@ -15,6 +16,9 @@ export type {
   CreateSetInput,
   UpdateWorkoutInput,
   WorkoutHistoryFilters,
+  AddExerciseToWorkoutInput,
+  SetInput,
+  UpdateSetInput,
 } from './workout.types'
 export type {
   BodyWeightEntry,

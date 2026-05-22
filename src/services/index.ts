@@ -1,3 +1,4 @@
+export { healthService } from './health.service'
 export { authService } from './auth.service'
 export { workoutService } from './workout.service'
 export { exerciseService } from './exercise.service'
