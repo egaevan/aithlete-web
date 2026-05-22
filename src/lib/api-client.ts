@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 import type { ApiError } from '@/types/api.types'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
 
 class ApiClient {
   private client: AxiosInstance
@@ -46,7 +46,7 @@ class ApiClient {
               return Promise.reject(error)
             }
 
-            const response = await axios.post(`${API_BASE_URL}/auth/refresh`, {
+            const response = await axios.post(`${API_BASE_URL}/api/v1/auth/refresh`, {
               refreshToken,
             })
 

@@ -16,41 +16,26 @@ export const workoutService = {
     if (filters?.limit) params.limit = filters.limit
     if (filters?.offset) params.offset = filters.offset
 
-    const response = await apiClient.get<ApiResponse<Workout[]>>('/workouts', params)
+    const response = await apiClient.get<ApiResponse<Workout[]>>('/api/v1/workouts', params)
     return response.data
   },
 
   async getWorkout(id: string): Promise<Workout> {
-    const response = await apiClient.get<ApiResponse<Workout>>(`/workouts/${id}`)
+    const response = await apiClient.get<ApiResponse<Workout>>(`/api/v1/workouts/${id}`)
     return response.data
   },
 
   async createWorkout(data: CreateWorkoutInput): Promise<Workout> {
-    const response = await apiClient.post<ApiResponse<Workout>>('/workouts', data)
+    const response = await apiClient.post<ApiResponse<Workout>>('/api/v1/workouts', data)
     return response.data
   },
 
   async updateWorkout(id: string, data: UpdateWorkoutInput): Promise<Workout> {
-    const response = await apiClient.put<ApiResponse<Workout>>(`/workouts/${id}`, data)
+    const response = await apiClient.put<ApiResponse<Workout>>(`/api/v1/workouts/${id}`, data)
     return response.data
   },
 
   async deleteWorkout(id: string): Promise<void> {
-    await apiClient.delete(`/workouts/${id}`)
-  },
-
-  async getWorkoutStats(): Promise<{
-    totalWorkouts: number
-    totalVolume: number
-    avgDuration: number
-    currentStreak: number
-  }> {
-    const response = await apiClient.get<ApiResponse<{
-      totalWorkouts: number
-      totalVolume: number
-      avgDuration: number
-      currentStreak: number
-    }>>('/workouts/stats')
-    return response.data
+    await apiClient.delete(`/api/v1/workouts/${id}`)
   },
 }

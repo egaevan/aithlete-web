@@ -53,10 +53,3 @@ export function useDeleteWorkout() {
     },
   })
 }
-
-export function useWorkoutStats() {
-  return useQuery({
-    queryKey: QUERY_KEYS.workouts.stats(),
-    queryFn: () => workoutService.getWorkoutStats(),
-  })
-}

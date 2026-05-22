@@ -10,17 +10,17 @@ export const exerciseService = {
     if (filters?.difficulty) params.difficulty = filters.difficulty
     if (filters?.search) params.search = filters.search
 
-    const response = await apiClient.get<ApiResponse<Exercise[]>>('/exercises', params)
+    const response = await apiClient.get<ApiResponse<Exercise[]>>('/api/v1/exercises', params)
     return response.data
   },
 
   async getExercise(id: string): Promise<Exercise> {
-    const response = await apiClient.get<ApiResponse<Exercise>>(`/exercises/${id}`)
+    const response = await apiClient.get<ApiResponse<Exercise>>(`/api/v1/exercises/${id}`)
     return response.data
   },
 
   async getMuscleGroups(): Promise<MuscleGroup[]> {
-    const response = await apiClient.get<ApiResponse<MuscleGroup[]>>('/exercises/muscle-groups')
+    const response = await apiClient.get<ApiResponse<MuscleGroup[]>>('/api/v1/exercises/muscle-groups')
     return response.data
   },
 }

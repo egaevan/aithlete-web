@@ -1,7 +1,7 @@
 {
   "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "name": "AITHLETE Mock API",
-  "endpointPrefix": "api",
+  "endpointPrefix": "api/v1",
   "latency": 0,
   "port": 3001,
   "hostname": "",

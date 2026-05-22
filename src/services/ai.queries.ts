@@ -3,20 +3,6 @@ import { aiService } from '@/services/ai.service'
 import { QUERY_KEYS } from '@/lib/query-options'
 import { useAIStore } from '@/stores/ai.store'
 
-export function useAIRecommendations() {
-  return useQuery({
-    queryKey: QUERY_KEYS.ai.recommendations(),
-    queryFn: () => aiService.getRecommendations(),
-  })
-}
-
-export function useRecommendedWorkout() {
-  return useQuery({
-    queryKey: [...QUERY_KEYS.ai.recommendations(), 'workout'],
-    queryFn: () => aiService.getRecommendedWorkout(),
-  })
-}
-
 export function useFatigueAnalysis() {
   return useQuery({
     queryKey: QUERY_KEYS.ai.fatigue(),

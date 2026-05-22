@@ -9,7 +9,6 @@ export const QUERY_KEYS = {
     list: (filters?: Record<string, unknown>) => [...QUERY_KEYS.workouts.all, 'list', filters] as const,
     detail: (id: string) => [...QUERY_KEYS.workouts.all, 'detail', id] as const,
     history: (filters?: Record<string, unknown>) => [...QUERY_KEYS.workouts.all, 'history', filters] as const,
-    stats: () => [...QUERY_KEYS.workouts.all, 'stats'] as const,
   },
   exercises: {
     all: ['exercises'] as const,
@@ -22,12 +21,9 @@ export const QUERY_KEYS = {
     bodyWeight: () => [...QUERY_KEYS.progress.all, 'body-weight'] as const,
     strength: () => [...QUERY_KEYS.progress.all, 'strength'] as const,
     consistency: () => [...QUERY_KEYS.progress.all, 'consistency'] as const,
-    muscleVolume: () => [...QUERY_KEYS.progress.all, 'muscle-volume'] as const,
-    overview: () => [...QUERY_KEYS.progress.all, 'overview'] as const,
   },
   ai: {
     all: ['ai'] as const,
-    recommendations: () => [...QUERY_KEYS.ai.all, 'recommendations'] as const,
     chat: (sessionId: string) => [...QUERY_KEYS.ai.all, 'chat', sessionId] as const,
     fatigue: () => [...QUERY_KEYS.ai.all, 'fatigue'] as const,
     recovery: () => [...QUERY_KEYS.ai.all, 'recovery'] as const,
@@ -36,8 +32,6 @@ export const QUERY_KEYS = {
   analytics: {
     all: ['analytics'] as const,
     dashboard: () => [...QUERY_KEYS.analytics.all, 'dashboard'] as const,
-    weekly: () => [...QUERY_KEYS.analytics.all, 'weekly'] as const,
-    streak: () => [...QUERY_KEYS.analytics.all, 'streak'] as const,
     overview: () => [...QUERY_KEYS.analytics.all, 'overview'] as const,
     weeklyVolume: () => [...QUERY_KEYS.analytics.all, 'volume', 'weekly'] as const,
     muscleVolume: () => [...QUERY_KEYS.analytics.all, 'volume', 'muscle'] as const,

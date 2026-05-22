@@ -13,11 +13,16 @@ import { ContentContainer } from '@/components/layout/content-container'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { useAuthStore } from '@/stores/auth.store'
+import { profileService } from '@/services/profile.service'
+import { useCurrentUser } from '@/services/auth.queries'
 import { toast } from 'sonner'
+import { useEffect } from 'react'
 
 const profileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  birthday: z.string().min(1, 'Birthday is required'),
+  birthday: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Birthday must be in YYYY-MM-DD format (e.g. 2000-05-22)'),
   gender: z.enum(['male', 'female', 'other'], {
     required_error: 'Gender is required',
   }),
@@ -29,6 +34,8 @@ export default function ProfilePage() {
   const user = useAuthStore((s) => s.user)
   const setUser = useAuthStore((s) => s.setUser)
 
+  useCurrentUser()
+
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -38,17 +45,24 @@ export default function ProfilePage() {
     },
   })
 
-  const onSubmit = (data: ProfileFormData) => {
+  useEffect(() => {
     if (user) {
-      setUser({
-        ...user,
-        name: data.name,
-        birthday: data.birthday,
-        gender: data.gender,
-        updatedAt: new Date().toISOString(),
+      form.reset({
+        name: user.name || '',
+        birthday: user.birthday || '',
+        gender: user.gender || 'male',
       })
     }
-    toast.success('Profile updated successfully!')
+  }, [user, form])
+
+  const onSubmit = async (data: ProfileFormData) => {
+    try {
+      const updatedUser = await profileService.updateProfile(data)
+      setUser(updatedUser)
+      toast.success('Profile updated successfully!')
+    } catch {
+      toast.error('Failed to update profile')
+    }
   }
 
   return (

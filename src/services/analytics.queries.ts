@@ -9,20 +9,6 @@ export function useDashboardOverview() {
   })
 }
 
-export function useWeeklyProgress() {
-  return useQuery({
-    queryKey: QUERY_KEYS.analytics.weekly(),
-    queryFn: () => analyticsService.getWeeklyProgress(),
-  })
-}
-
-export function useWorkoutStreak() {
-  return useQuery({
-    queryKey: QUERY_KEYS.analytics.streak(),
-    queryFn: () => analyticsService.getWorkoutStreak(),
-  })
-}
-
 export function useAnalyticsOverview() {
   return useQuery({
     queryKey: QUERY_KEYS.analytics.overview(),

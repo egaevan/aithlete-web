@@ -9,7 +9,7 @@ import type { ApiResponse } from '@/types/api.types'
 
 export const authService = {
   async login(data: LoginInput): Promise<AuthResponse> {
-    const response = await apiClient.post<ApiResponse<AuthResponse>>('/auth/login', data)
+    const response = await apiClient.post<ApiResponse<AuthResponse>>('/api/v1/auth/login', data)
     const { accessToken, refreshToken } = response.data.tokens
     apiClient.setAuthToken(accessToken)
     if (typeof window !== 'undefined') {
@@ -19,7 +19,7 @@ export const authService = {
   },
 
   async register(data: RegisterInput): Promise<AuthResponse> {
-    const response = await apiClient.post<ApiResponse<AuthResponse>>('/auth/register', data)
+    const response = await apiClient.post<ApiResponse<AuthResponse>>('/api/v1/auth/register', data)
     const { accessToken, refreshToken } = response.data.tokens
     apiClient.setAuthToken(accessToken)
     if (typeof window !== 'undefined') {
@@ -30,14 +30,14 @@ export const authService = {
 
   async logout(): Promise<void> {
     try {
-      await apiClient.post('/auth/logout')
+      await apiClient.post('/api/v1/auth/logout')
     } finally {
       apiClient.clearAuth()
     }
   },
 
   async getCurrentUser(): Promise<User> {
-    const response = await apiClient.get<ApiResponse<User>>('/auth/me')
+    const response = await apiClient.get<ApiResponse<User>>('/api/v1/auth/me')
     return response.data
   },
 
@@ -46,7 +46,7 @@ export const authService = {
     if (!refreshToken) throw new Error('No refresh token available')
 
     const response = await apiClient.post<ApiResponse<{ accessToken: string; refreshToken: string }>>(
-      '/auth/refresh',
+      '/api/v1/auth/refresh',
       { refreshToken },
     )
     const { accessToken, refreshToken: newRefreshToken } = response.data
