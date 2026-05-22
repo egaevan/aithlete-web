@@ -74,14 +74,14 @@ export default function ExercisesPage() {
             <Filter className="mr-2 h-4 w-4" />
             All
           </Button>
-          {Array.isArray(muscleGroups) && muscleGroups.map((mg) => (
+          {Array.isArray(muscleGroups) && muscleGroups.map((mg, i) => (
             <Button
-              key={mg}
+              key={i}
               variant={selectedMuscle === mg ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSelectedMuscle(selectedMuscle === mg ? null : mg)}
             >
-              {muscleGroupLabels[mg]}
+              {muscleGroupLabels[mg as MuscleGroup]}
             </Button>
           ))}
         </div>
